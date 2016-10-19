@@ -10,7 +10,7 @@ Aplictie pentru o firma care ofera servicii de reparatii telefoane/tablete.
 	- sa vada o diagrama cu telefoanele/tabletele pentru care au fost facute cele mai multe cereri de reparatie
 			
 - administratorul dupa logare poate: 
-	- sa vada o lista cu toate cererile de reparare imediat dupa logare
+	- sa vada o lista cu toate cererile de reparare imediat dupa logare.
 	- apasand pe o cerere sa modifice statusul unui produs (in asteptare / in decurs de reparare / reparat + adresa sediului la care se afla produsul) , daca a fost reparat si expediat sa stearga cererea.
 
 			
