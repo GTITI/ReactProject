@@ -13,6 +13,6 @@ Aplictie pentru o firma care ofera servicii de reparatii telefoane/tablete.
 - administratorul dupa logare poate: 
 			- sa vada o lista cu toate cererile de reparare
 			- sa modifice statusul unui produs (in asteptare / in decurs de reparare / reparat + adresa sediului la care 
-								se afla produsul) , daca a fost reparat si expediat sa stearga cererea
+								se afla produsul) , daca a fost reparat si expediat sa stearga cererea.
 
 			
