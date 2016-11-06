@@ -16,17 +16,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ListItemActivity1">
+        <activity android:name=".ListItemActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ListItemActivity2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+
 
     </application>
 

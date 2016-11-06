@@ -53,49 +53,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        // event for clicking on a list view item
+        // opens a new activity
         show.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                if (position == 0) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
-                    startActivityForResult(myIntent, 0);
-                }
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // iau stringul itemului selectat
+                String selectedFromList =(String) (show.getItemAtPosition(position));
 
-                if (position == 1) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
-                    startActivityForResult(myIntent, 0);
-                }
+                // trimit spre activitatea ce se va deschide stringul
+                Intent myIntent = new Intent(view.getContext(), ListItemActivity.class).putExtra("itemName",selectedFromList);
 
-                if (position == 2) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
-                    startActivityForResult(myIntent, 0);
-                }
+                // pornesc noua activitate
+                startActivityForResult(myIntent, 0);
 
-                if (position == 3) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
-                    startActivityForResult(myIntent, 0);
-                }
-
-                if (position == 4) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
-                    startActivityForResult(myIntent, 0);
-                }
-
-                if (position == 5) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
-                    startActivityForResult(myIntent, 0);
-                }
-
-                if (position == 6) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
-                    startActivityForResult(myIntent, 0);
-                }
-
-                if (position == 7) {
-                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
-                    startActivityForResult(myIntent, 0);
-                }
             }
         });
 
