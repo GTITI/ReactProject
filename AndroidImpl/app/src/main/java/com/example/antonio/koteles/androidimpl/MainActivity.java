@@ -18,19 +18,42 @@ import static com.example.antonio.koteles.androidimpl.R.id.nameInput;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button save ;
-    ArrayList<String> addArray  = new ArrayList<String>();
-    EditText txt;
-    ListView show;
+    private Button save ;
+    private Button refresh;
+
+
+    public static ArrayList<String> addArray  = new ArrayList<String>();
+    private EditText txt;
+    public static ListView show;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         txt = (EditText) findViewById(nameInput);
         show = (ListView) findViewById(R.id.myListView);
         save = (Button) findViewById(R.id.addBtn);
+        refresh = (Button) findViewById(R.id.refreshBtn);
+
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, addArray);
+                    show.setAdapter(adapter);
+
+
+            }
+        });
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -39,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 String getInput = txt.getText().toString();
 
                 if (addArray.contains(getInput)) {
-                    Toast.makeText(getBaseContext(), "Item already there", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Item already in the list", Toast.LENGTH_LONG).show();
                 } else if (getInput == null || getInput.trim().equals("")) {
-                    Toast.makeText(getBaseContext(), "IInput is empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Input is empty", Toast.LENGTH_LONG).show();
                 } else {
                     addArray.add(getInput);
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, addArray);
@@ -62,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // trimit spre activitatea ce se va deschide stringul
                 Intent myIntent = new Intent(view.getContext(), ListItemActivity.class).putExtra("itemName",selectedFromList);
+                myIntent.putExtra("itemPosition",position);
 
                 // pornesc noua activitate
                 startActivityForResult(myIntent, 0);
