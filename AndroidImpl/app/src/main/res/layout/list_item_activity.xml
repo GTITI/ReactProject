@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -13,7 +13,8 @@
         android:text="SelectedLVI"
         android:textSize="40sp"
         android:id="@+id/receivedTextId"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_weight="0.09" />
 
     <EditText
         android:layout_width="match_parent"
@@ -32,4 +33,4 @@
         android:id="@+id/saveChangesBtn"
         android:background="@android:color/holo_green_dark" />
 
-</LinearLayout>
+</TableLayout>

@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static com.example.antonio.koteles.androidimpl.MainActivity.addArray;
 import static com.example.antonio.koteles.androidimpl.R.id.receivedTextEditable;
 import static com.example.antonio.koteles.androidimpl.R.id.receivedTextId;
+
+//import static com.example.antonio.koteles.androidimpl.MainActivity.addArray;
 
 
 /**
@@ -48,18 +48,18 @@ public class ListItemActivity extends AppCompatActivity {
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String getNewText = textReceivedEditable.getText().toString();
-
-
-
-                if (addArray.contains(getNewText)) {
-                    Toast.makeText(getBaseContext(), "Item already in the list", Toast.LENGTH_LONG).show();
-                } else if (getNewText == null || getNewText.trim().equals("")) {
-                    Toast.makeText(getBaseContext(), "Input is empty", Toast.LENGTH_LONG).show();
-                } else {
-                    textReceived.setText(getNewText);
-                    addArray.set(pos,getNewText);
-                }
+//                String getNewText = textReceivedEditable.getText().toString();
+//
+//
+//
+//                if (addArray.contains(getNewText)) {
+//                    Toast.makeText(getBaseContext(), "Item already in the list", Toast.LENGTH_LONG).show();
+//                } else if (getNewText == null || getNewText.trim().equals("")) {
+//                    Toast.makeText(getBaseContext(), "Input is empty", Toast.LENGTH_LONG).show();
+//                } else {
+//                    textReceived.setText(getNewText);
+//                    addArray.set(pos,getNewText);
+//                }
             }
         });
 
