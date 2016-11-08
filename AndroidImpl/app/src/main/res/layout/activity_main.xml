@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="name..."
+        android:hint="Name..."
         android:id="@+id/nameInput"
         android:textColorLink="@android:color/holo_green_light"
         android:layout_alignParentTop="true"
@@ -30,7 +30,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="address..."
+        android:hint="Address..."
         android:ems="10"
         android:id="@+id/addressInput"
         android:textColorLink="@android:color/holo_green_light"
@@ -41,7 +41,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="product name..."
+        android:hint="Product name..."
         android:ems="10"
         android:id="@+id/productNameInput"
         android:textColorLink="@android:color/holo_green_light"
@@ -52,7 +52,7 @@
     <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="description..."
+    android:hint="Description..."
     android:ems="10"
     android:id="@+id/descriptionInput"
     android:textColorLink="@android:color/holo_green_light"
@@ -75,7 +75,7 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:text="Show list"
+        android:text="Show/refresh list"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:id="@+id/refreshBtn"
@@ -97,9 +97,10 @@
 
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/myListView"
+        android:layout_marginTop="2dp"
         android:textAlignment="center"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/descriptionInput" />

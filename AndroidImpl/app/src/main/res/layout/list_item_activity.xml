@@ -7,22 +7,46 @@
     android:weightSum="1">
 
 
-    <TextView
-        android:layout_width="338dp"
-        android:layout_height="wrap_content"
-        android:text="SelectedLVI"
-        android:textSize="40sp"
-        android:id="@+id/receivedTextId"
-        android:textAlignment="center"
-        android:layout_weight="0.09" />
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Name"
+        android:hint="Name..."
         android:ems="10"
-        android:id="@+id/receivedTextEditable"
+        android:id="@+id/receivedTextName"
+        android:layout_weight="0.03"
+        android:textAlignment="center" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Address..."
+        android:text="Address"
+        android:ems="10"
+        android:id="@+id/receivedTextAddress"
+        android:layout_weight="0.03"
+        android:textAlignment="center" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Product name..."
+        android:text="Product name"
+        android:ems="10"
+        android:id="@+id/receivedTextProductName"
+        android:layout_weight="0.03"
+        android:textAlignment="center" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Description..."
+        android:text="Description"
+        android:ems="10"
+        android:id="@+id/receivedTextDescription"
         android:layout_weight="0.03"
         android:textAlignment="center" />
 

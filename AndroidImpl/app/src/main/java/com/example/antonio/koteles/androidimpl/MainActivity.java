@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 if (requestsArray.contains(r)) {
                     Toast.makeText(getBaseContext(), "Item already in the list", Toast.LENGTH_LONG).show();
                 } else if (getName == null || getName.trim().equals("") || getAddress == null ||
-                        getName.equals("") || getProductName == null || getProductName.equals("") ||
+                        getAddress.equals("") || getProductName == null || getProductName.equals("") ||
                         getDescription == null || getDescription.equals("")) {
                     Toast.makeText(getBaseContext(), "Some input is empty", Toast.LENGTH_LONG).show();
                 } else {
@@ -136,7 +136,11 @@ public class MainActivity extends AppCompatActivity {
                 Request selectedFromList =(Request) (show.getItemAtPosition(position));
 
                 // trimit spre activitatea ce se va deschide stringul
-                Intent myIntent = new Intent(view.getContext(), ListItemActivity.class).putExtra("itemName",selectedFromList.getName());
+                Intent myIntent = new Intent(view.getContext(), ListItemActivity.class);
+                myIntent.putExtra("itemName",selectedFromList.getName());
+                myIntent.putExtra("itemAddress",selectedFromList.getAddress());
+                myIntent.putExtra("itemProductName",selectedFromList.getProductName());
+                myIntent.putExtra("itemDescription",selectedFromList.getDescription());
                 myIntent.putExtra("itemPosition",position);
 
                 // pornesc noua activitate
