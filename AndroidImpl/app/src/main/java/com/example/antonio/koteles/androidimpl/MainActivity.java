@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private Button save ;
     private Button refresh;
 
-    //public static ArrayList<String> addArray  = new ArrayList<String>();
-
 
     // inputs
     private EditText nameTxt;
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     // list view
     public static ListView show;
 
-
+    // the array that holds the requests
     public  static ArrayList<Request> requestsArray  = new ArrayList<Request>();
 
     Request a = new Request("Antonio Koteles", "Via Csutakos 79 Salonta", "Samsung galaxy s4", "Ecranul este fisurat");
@@ -48,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    // function for sending email based on the introduced requests
     public void sendMail(View view){
 
         String reqString = "\n------------------------------------------------\n";
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    // checks if a request is contained by a list of requests comparing each field
     public static boolean contains(ArrayList<Request> list, Request r){
         for(Iterator<Request> i = list.iterator(); i.hasNext(); ) {
             Request rec = i.next();
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        // saves a new request in the list and shows it into the list view
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -22,12 +22,13 @@ import static com.example.antonio.koteles.androidimpl.R.id.receivedTextProductNa
 public class ListItemActivity extends AppCompatActivity {
 
 
-
+    // editable texts
     private EditText textReceivedName;
     private EditText textReceivedAddress;
     private EditText textReceivedProductName;
     private EditText textReceivedDescription;
 
+    // button for saving changes
     private Button saveChanges ;
 
 
@@ -62,6 +63,7 @@ public class ListItemActivity extends AppCompatActivity {
         textReceivedDescription = (EditText) findViewById(receivedTextDescription);
         textReceivedDescription.setText(descriptionGet);
 
+        // on click saves the changes
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

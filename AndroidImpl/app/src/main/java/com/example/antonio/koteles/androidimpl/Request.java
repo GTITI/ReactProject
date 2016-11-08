@@ -4,6 +4,7 @@ package com.example.antonio.koteles.androidimpl;
  * Created by Koteles on 11/7/2016.
  */
 
+// class for REQUEST sent by a customer
 public class Request{
     private String name;
     private String address;
@@ -11,6 +12,7 @@ public class Request{
     private String description;
 
 
+    //constructor
     public Request(String nameParam, String addressParam , String productNameParam, String descriptionParam){
         this.name = nameParam;
         this.address = addressParam;
@@ -18,6 +20,7 @@ public class Request{
         this.description = descriptionParam;
     }
 
+    //getters-setters
     public String getName(){return this.name;}
     public String getAddress(){return this.address;}
     public String getDescription(){return this.description;}
@@ -28,6 +31,7 @@ public class Request{
     public void setDescription(String description){this.description = description;}
     public void setProductName(String productName){this.productName = productName;}
 
+    // to string
     public String toString(){
         return "Name: " + this.name + "\nAddress: " + this.address + "\nProduct name: " + this.productName + "\nDesription: " + this.description;
     }
