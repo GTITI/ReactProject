@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static com.example.antonio.koteles.androidimpl.R.id.addressInput;
 import static com.example.antonio.koteles.androidimpl.R.id.descriptionInput;
@@ -68,6 +69,20 @@ public class MainActivity extends AppCompatActivity {
         startActivity(chooser);
     }
 
+
+
+    public static boolean contains(ArrayList<Request> list, Request r){
+        for(Iterator<Request> i = list.iterator(); i.hasNext(); ) {
+            Request rec = i.next();
+            if(rec.getAddress().equals(r.getAddress()) && rec.getDescription().equals(r.getDescription())
+                    && rec.getName().equals(r.getName()) && rec.getProductName().equals(r.getProductName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
+
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Request r = new Request(getName, getAddress, getProductName, getDescription);
 
-                if (requestsArray.contains(r)) {
+                if (contains(requestsArray,r)) {
                     Toast.makeText(getBaseContext(), "Item already in the list", Toast.LENGTH_LONG).show();
                 } else if (getName == null || getName.trim().equals("") || getAddress == null ||
                         getAddress.equals("") || getProductName == null || getProductName.equals("") ||

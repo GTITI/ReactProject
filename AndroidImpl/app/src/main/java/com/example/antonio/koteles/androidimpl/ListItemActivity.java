@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static com.example.antonio.koteles.androidimpl.MainActivity.contains;
 import static com.example.antonio.koteles.androidimpl.MainActivity.requestsArray;
 import static com.example.antonio.koteles.androidimpl.R.id.receivedTextAddress;
 import static com.example.antonio.koteles.androidimpl.R.id.receivedTextDescription;
@@ -71,7 +72,7 @@ public class ListItemActivity extends AppCompatActivity {
 
                 Request r = new Request(getNewName,getNewAddress,getNewProductName,getNewDescription);
 
-                if (requestsArray.contains(r)) {
+                if (contains(requestsArray,r)) {
                     Toast.makeText(getBaseContext(), "Item already in the list", Toast.LENGTH_LONG).show();
                 } else if (getNewName == null || getNewName.trim().equals("") || getNewAddress == null ||
                         getNewAddress.equals("") || getNewProductName == null || getNewProductName.equals("") ||
