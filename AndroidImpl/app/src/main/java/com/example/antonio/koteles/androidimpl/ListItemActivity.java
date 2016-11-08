@@ -79,6 +79,7 @@ public class ListItemActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Some input is empty", Toast.LENGTH_LONG).show();
                 } else {
                     requestsArray.set(pos,r);
+                    Toast.makeText(getBaseContext(), "Saved", Toast.LENGTH_LONG).show();
                 }
             }
         });

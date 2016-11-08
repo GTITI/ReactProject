@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
     public  static ArrayList<Request> requestsArray  = new ArrayList<Request>();
 
+    Request a = new Request("Antonio Koteles", "Via Csutakos 79 Salonta", "Samsung galaxy s4", "Ecranul este fisurat");
+    Request b = new Request("George Buz", "MIhai Eminescu 45 Ciumeghiu", "Iphone 4s", "Butonul de start nu mai raspunde");
+
 
 
     public void sendMail(View view){
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        requestsArray.add(a);requestsArray.add(b);
 
     // initializez componentele de UI
         nameTxt = (EditText) findViewById(nameInput);
