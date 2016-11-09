@@ -109,7 +109,6 @@ var requests = [
       }
 
       _onPressListVIewItem() {
-            console.log("aaaaaaaaaaaaaaaaaaaaaa");
 	        	Alert.alert("OK","Item touched");
 
     	}
@@ -118,7 +117,7 @@ var requests = [
           return (
               <TouchableOpacity 
               
-              onPress={() => {console.log("bbbbbbb");() => this._onPressListVIewItem}}>
+              onPress={() => this._onPressListVIewItem}>
                   <View 
                     style={styles.viewDetails}>
                       <Text>{request.name}</Text>
