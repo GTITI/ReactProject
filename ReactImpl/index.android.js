@@ -11,18 +11,34 @@ import {
   StyleSheet,
   Text,
   View,
+  Navigator,
   ListView,
   TextInput,
-  TouchableNativeFeedback
+  StatusBar,
+  TouchableHighLight,
+  TouchableNativeFeedback,
+  TouchableOpacity
 } from 'react-native';
 
+import Communications from 'react-native-communications';
+import Button from 'react-native-button';
+
+
+var requests = [
+    { "name": "Antonio Koteles", "address": "Mihai Viteazu 45 Oradea", "productName" : "Samsung galaxy s4","description" : "Broken display"},
+    { "name": "George Buz", "address": "A.I. Cuza 34 Holod", "productName" : "IPhone 4s", "description" : "dead batery"},
+    { "name": "Andrei Micle", "address": "Miron 22 Timisoara" , "productName" : "Tablet asus" , "description" : "Not restarting"},
+    
+  ]
 
 
   class Request  extends React.Component{
      constructor(props) {
         super(props);
         this.state = { name:'', address:'', productName:'', description:'' };
-      }
+      
+        
+  }
 
 
      getName(){return this.state.name}
@@ -45,42 +61,15 @@ import {
   }
 
 
-  class MyListView extends React.Component {
-      constructor(props) {
-          super(props);
-          const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        
-          this.state = {
-            dataSource: ds.cloneWithRows(['Antonio', 'Alin','Vald']),
-          };
-      }
-
-      _onPress(){
-        Alert.alert("Good job","you pressed list view");
-      }
-
-      render() {
-        return (
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Text>{rowData}</Text>}
-            onPress = {this._onPress}
-          />
-        );
-      }
-}
+ 
 
 
 class SaveButton extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = { /* initial state, this is ES6 syntax (classes) */ };
-      }
-
-
+    
       _onPressButton(){
-        var s  = ReactImpl.state.name;
-        Alert.alert("Good job","you pressed "+String(s));
+        Alert.alert("Good job","you pressed me :)")
+        requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
+
       }
 
       render(){
@@ -102,20 +91,58 @@ class SaveButton extends React.Component{
   
   constructor(props) {
     super(props);
+
+
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+   
     this.state = {
         name : '' ,
         address: '',
         productName: '',
-        description: ''
+        description: '',
+      
+        dataSource: ds.cloneWithRows([
+        {name: 'Antonio', address: 'Via Csutakos 79', productName: 'Samsung galaxy s4' , description: 'Broken display' },
+        {name: 'Vlad', address: 'Mihai Eminescu 79', productName: 'Iphone 4s' , description: 'Broken display' },
+        {name: 'Cristi', address: 'B.P Hasdeu 44', productName: 'Tableta Asus' , description: 'Battery ' }
+              ])
       };
-  }
+
+   
+
+}
+
+  
+
+      _addBtn(){
+           Alert.alert("Good job","add button")
+      }
+
+    _emailBtn() {
+        Communications.email(["k.antonio_16@yahoo.com"],"","","ReactEmail","Email sent with information");
+      }
+
+    
+
+
+ 
 
   render() {
 	      
     return (
  
       <View>
-          <Text style={styles.header}>Send some data here</Text>
+
+          <StatusBar
+            backgroundColor="green"
+            barStyle="light-content"
+          />
+
+
+
+          
+
+          <Text style={styles.header}>Create a new request</Text>
       
           <TextInput
           style= {styles.input} 
@@ -140,14 +167,44 @@ class SaveButton extends React.Component{
             placeholder="Enter description"
           />
 
-          <SaveButton 
-              
+
+         
+         
+        
+
+
+           <Button
+            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue'}}
+              style={{fontSize: 20, color: 'green'}}
+              styleDisabled={{color: 'red'}}
+              onPress={() => this._addBtn()}>
+              Add request
+		      </Button>
+
+          <Button
+          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
+            style={{fontSize: 20, color: 'green'}}
+            styleDisabled={{color: 'red'}}
+            onPress={() => this._emailBtn()}>
+            Send email
+		    </Button>
+
+          
+
+          <ListView
+              dataSource={this.state.dataSource}
+              renderRow={(rowData) => 
+                <View>
+                  <Text>{rowData.name}</Text>
+                  <Text>{rowData.address}</Text>
+                  <Text>{rowData.productName}</Text>
+                  <Text>{rowData.description}</Text>
+                   <Text>===================</Text>
+              </View>}
           />
 
-          <MyListView />
-
     </View>
-
+    
     );
   }
 }
@@ -173,7 +230,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign : 'center'
-  }
+  },
+  holder: {
+    flex: 0.25,
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 50,
+    backgroundColor: 'red'
+  },
+  
   
 });
 
