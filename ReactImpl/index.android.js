@@ -31,6 +31,10 @@ var requests = [
     
   ]
 
+  var requestsString = requests.map(function(item) {
+    return "\nName: " + item['name'] + "\nAddress: " + item['address'] + "\nProduct name: " + item['productName'] + "\nDescription: " + item['description'] + "\n-----------------------------------------------";
+});
+
 
   class Request  extends React.Component{
      constructor(props) {
@@ -101,27 +105,52 @@ class SaveButton extends React.Component{
         productName: '',
         description: '',
       
-        dataSource: ds.cloneWithRows([
-        {name: 'Antonio', address: 'Via Csutakos 79', productName: 'Samsung galaxy s4' , description: 'Broken display' },
-        {name: 'Vlad', address: 'Mihai Eminescu 79', productName: 'Iphone 4s' , description: 'Broken display' },
-        {name: 'Cristi', address: 'B.P Hasdeu 44', productName: 'Tableta Asus' , description: 'Battery ' }
-              ])
-      };
+        
+       dataSource: new ListView.DataSource({
+              rowHasChanged: (row1, row2) => row1 !== row2,
+              }),
+              loaded: false,    
+        };
 
    
 
 }
 
   
+      componentDidMount(){
+          this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(requests),
+              loaded: true,
+            });
+	  }
 
       _addBtn(){
            Alert.alert("Good job","add button")
       }
 
     _emailBtn() {
-        Communications.email(["k.antonio_16@yahoo.com"],"","","ReactEmail","Email sent with information");
+        Communications.email(["k.antonio_16@yahoo.com"],"","","Sent from react",requestsString.toString());
       }
 
+      _onPressButton() {
+	        	Alert.alert("yas");
+    	}
+
+      renderRequest(request){
+          return (
+          <TouchableOpacity onPress={this._onPressButton}>
+            <View 
+            style={styles.viewDetails}>
+              <Text>{request.name}</Text>
+              <Text>{request.address}</Text>
+              <Text>{request.productName}</Text>
+              <Text>{request.description}</Text>
+              <Text>-------------------------------------------------------------------------------</Text>
+
+            </View>
+          </TouchableOpacity>
+            );
+	  }
     
 
 
@@ -191,17 +220,14 @@ class SaveButton extends React.Component{
 
           
 
-          <ListView
-              dataSource={this.state.dataSource}
-              renderRow={(rowData) => 
-                <View>
-                  <Text>{rowData.name}</Text>
-                  <Text>{rowData.address}</Text>
-                  <Text>{rowData.productName}</Text>
-                  <Text>{rowData.description}</Text>
-                   <Text>===================</Text>
-              </View>}
-          />
+
+        <ListView 
+			    dataSource={this.state.dataSource}
+			    renderRow={this.renderRequest}
+			    style={styles.listView}
+		    />
+
+          
 
     </View>
     
@@ -226,6 +252,11 @@ const styles = StyleSheet.create({
     textAlign:'center',
     margin:10
   },
+  listView: {
+      width: 320,
+      paddingTop: 1,
+      backgroundColor: '#F5FCFF',
+    },
   header: {
     fontWeight: 'bold',
     fontSize: 30,
