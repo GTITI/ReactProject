@@ -83,6 +83,7 @@ public class ListItemActivity extends AppCompatActivity {
                 } else {
                     requestsArray.set(pos,r);
                     Toast.makeText(getBaseContext(), "Saved", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         });
