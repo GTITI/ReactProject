@@ -31,9 +31,7 @@ var requests = [
     
   ]
 
-  var requestsString = requests.map(function(item) {
-    return "\nName: " + item['name'] + "\nAddress: " + item['address'] + "\nProduct name: " + item['productName'] + "\nDescription: " + item['description'] + "\n-----------------------------------------------";
-});
+  
 
 
   class Request  extends React.Component{
@@ -64,40 +62,12 @@ var requests = [
      }
   }
 
-
- 
-
-
-class SaveButton extends React.Component{
-    
-      _onPressButton(){
-        Alert.alert("Good job","you pressed me :)")
-        requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
-
-      }
-
-      render(){
-        return(
-          <TouchableNativeFeedback
-              onPress={this._onPressButton}
-              background={TouchableNativeFeedback.SelectableBackground()}>
-                    <View style={{width: 320, height: 40, backgroundColor: 'green'}}>
-                        <Text style={styles.addBtnText}>ADD</Text>
-                    </View>
-          </TouchableNativeFeedback>
-        );
-      }
-}
- 
  
  
  class ReactImpl extends React.Component {
   
   constructor(props) {
     super(props);
-
-
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
    
     this.state = {
         name : '' ,
@@ -112,8 +82,6 @@ class SaveButton extends React.Component{
               loaded: false,    
         };
 
-   
-
 }
 
   
@@ -125,30 +93,34 @@ class SaveButton extends React.Component{
 	  }
 
       _addBtn(){
-           Alert.alert("Good job","add button")
-      }
+           requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
+          Alert.alert("Done","Request added");
+    }
+
 
     _emailBtn() {
+      var requestsString = requests.map(function(item) {
+     return "\nName: " + item['name'] + "\nAddress: " + item['address'] + "\nProduct name: " + item['productName'] + "\nDescription: " + item['description'] + "\n";
+      });
+
         Communications.email(["k.antonio_16@yahoo.com"],"","","Sent from react",requestsString.toString());
       }
 
-      _onPressButton() {
-	        	Alert.alert("yas");
+      _onPressListVIewItem() {
+	        	Alert.alert("OK","Item touched");
     	}
 
       renderRequest(request){
           return (
-          <TouchableOpacity onPress={this._onPressButton}>
-            <View 
-            style={styles.viewDetails}>
-              <Text>{request.name}</Text>
-              <Text>{request.address}</Text>
-              <Text>{request.productName}</Text>
-              <Text>{request.description}</Text>
-              <Text>-------------------------------------------------------------------------------</Text>
-
-            </View>
-          </TouchableOpacity>
+              <TouchableOpacity onPress={this._onPressListVIewItem}>
+                  <View 
+                    style={styles.viewDetails}>
+                      <Text>{request.name}</Text>
+                      <Text>{request.address}</Text>
+                      <Text>{request.productName}</Text>
+                      <Text>{request.description}</Text>
+                  </View>
+              </TouchableOpacity>
             );
 	  }
     
@@ -157,43 +129,38 @@ class SaveButton extends React.Component{
  
 
   render() {
-	      
+
+   
     return (
- 
+
       <View>
 
-          <StatusBar
-            backgroundColor="green"
-            barStyle="light-content"
-          />
-
-
-
-          
-
-          <Text style={styles.header}>Create a new request</Text>
+          <Text style={styles.header}>Welcome</Text>
       
           <TextInput
-          style= {styles.input} 
-          onChangeText={(text) => this.setState({name : text})}
-          placeholder="Enter name"
-          value = {this.state.name}
+            style= {styles.input} 
+            onChangeText={(text) => this.setState({name : text})}
+            placeholder="Name..."
+            value = {this.state.name}
           />
 
           <TextInput
             style={styles.input}
             onChangeText={(text) => this.setState({address : text})}
-            placeholder="Enter address"
+            placeholder="Address..."
+            value = {this.state.address}
           />
           <TextInput
             style={styles.input}
             onChangeText={(text) => this.setState({productName : text})}
-            placeholder="Enter phoen number"
+            placeholder="Product name..."
+            value = {this.state.productName}
           />
           <TextInput
             style={styles.input}
             onChangeText={(text) => this.setState({description : text})}
-            placeholder="Enter description"
+            placeholder="Description..."
+            value = {this.state.description}
           />
 
 
@@ -201,22 +168,23 @@ class SaveButton extends React.Component{
          
         
 
-
+          
            <Button
-            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue'}}
-              style={{fontSize: 20, color: 'green'}}
+            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue', marginBottom: 4}}
+              style={{fontSize: 20, color: 'white'}}
               styleDisabled={{color: 'red'}}
               onPress={() => this._addBtn()}>
               Add request
 		      </Button>
 
+         
           <Button
-          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
-            style={{fontSize: 20, color: 'green'}}
-            styleDisabled={{color: 'red'}}
-            onPress={() => this._emailBtn()}>
-            Send email
-		    </Button>
+            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'yellow'}}
+              style={{fontSize: 20, color: 'blue'}}
+              styleDisabled={{color: 'red'}}
+              onPress={() => this._emailBtn()}>
+              Send email
+		      </Button>
 
           
 
@@ -241,17 +209,13 @@ const styles = StyleSheet.create({
   
   input: {
     backgroundColor: 'white',
-    height: 60,
-    borderColor: 'black',
+    height: 40,
+    borderColor: 'white',
     borderWidth: 1,
     margin: 3,
   },
  
-  addBtnText: {
-    
-    textAlign:'center',
-    margin:10
-  },
+ 
   listView: {
       width: 320,
       paddingTop: 1,
@@ -270,6 +234,9 @@ const styles = StyleSheet.create({
     fontSize: 50,
     backgroundColor: 'red'
   },
+  viewDetails: {
+	  margin: 9
+  }
   
   
 });
