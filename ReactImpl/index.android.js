@@ -74,15 +74,13 @@ var requests = [
         address: '',
         productName: '',
         description: '',
-      
-        
-       dataSource: new ListView.DataSource({
+        dataSource: new ListView.DataSource({
               rowHasChanged: (row1, row2) => row1 !== row2,
               }),
               loaded: false,    
         };
-
-}
+  
+  }
 
   
       componentDidMount(){
@@ -95,15 +93,19 @@ var requests = [
       _addBtn(){
            requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
           Alert.alert("Done","Request added");
+           this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(requests),
+              loaded: true,
+            });
     }
 
 
     _emailBtn() {
-      var requestsString = requests.map(function(item) {
-     return "\nName: " + item['name'] + "\nAddress: " + item['address'] + "\nProduct name: " + item['productName'] + "\nDescription: " + item['description'] + "\n";
-      });
+          var requestsString = requests.map(function(item) {
+                return "\nName: " + item['name'] + "\nAddress: " + item['address'] + "\nProduct name: " + item['productName'] + "\nDescription: " + item['description'] + "\n";
+           });
 
-        Communications.email(["k.antonio_16@yahoo.com"],"","","Sent from react",requestsString.toString());
+          Communications.email(["k.antonio_16@yahoo.com"],"","","Sent from react",requestsString.toString());
       }
 
       _onPressListVIewItem() {
@@ -165,10 +167,7 @@ var requests = [
 
 
          
-         
-        
 
-          
            <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue', marginBottom: 4}}
               style={{fontSize: 20, color: 'white'}}
@@ -194,8 +193,6 @@ var requests = [
 			    renderRow={this.renderRequest}
 			    style={styles.listView}
 		    />
-
-          
 
     </View>
     
