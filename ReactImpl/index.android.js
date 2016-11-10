@@ -29,7 +29,9 @@ var requests = [
   ]
 
 
-
+/**
+ * Some stuff that makes transitions look better
+ */
 
 var SCREEN_WIDTH = require('Dimensions').get('window').width;
 
@@ -87,7 +89,7 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
        */
       _addBtn(){
            requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
-          Alert.alert("Done","Request added");
+            Alert.alert("Done","Request added");
            this.setState({
               dataSource: this.state.dataSource.cloneWithRows(requests),
               loaded: true,
@@ -116,10 +118,7 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
     	        name: 'EditDetails',
               
               passProps: {
-            	    passedName: request.name,
-                  passedAddress: request.address,
-                  passedProductName: request.productName,
-                  passedDescription: request.description
+            	    request : request
                 }
           })
         
@@ -214,11 +213,24 @@ class EditDetails extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-        name : '' ,
-        address: '',
-        productName: '',
-        description: ''}
+        name : this.props.request.name ,
+        address: this.props.request.address,
+        productName: this.props.request.productName,
+        description: this.props.request.description}
 
+  }
+
+
+  /**
+   * when pressing the Save button
+   */
+  _handlePress() {
+			
+		this.props.request.name = this.state.name;
+		this.props.request.address = this.state.address;
+		this.props.request.productName = this.state.productName;
+		this.props.request.description = this.state.description;
+		this.props.navigator.pop();	
   }
 
     render(){
@@ -230,32 +242,32 @@ class EditDetails extends React.Component{
             style= {styles.input} 
             onChangeText={(text) => this.setState({name : text})}
             placeholder="Name..."
-            value = {this.props.passedName}
+            value = {this.state.name}
           />
           <TextInput
             style={styles.input}
             onChangeText={(text) => this.setState({address : text})}
             placeholder="Address..."
-            value = {this.props.passedAddress}
+            value = {this.state.address}
           />
           <TextInput
             style={styles.input}
             onChangeText={(text) => this.setState({productName : text})}
             placeholder="Product name..."
-            value = {this.props.passedProductName}
+            value = {this.state.productName}
           />
           <TextInput
             style={styles.input}
             onChangeText={(text) => this.setState({description : text})}
             placeholder="Description..."
-            value = {this.props.passedDescription}
+            value = {this.state.description}
           />
 
           <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'green', marginBottom: 4}}
               style={{fontSize: 20, color: 'white'}}
               styleDisabled={{color: 'red'}}
-              onPress={ () => this.props.navigator.pop() }>
+              onPress={ () => this._handlePress() }>
               Save and return
 		      </Button>
         </View>
@@ -264,6 +276,10 @@ class EditDetails extends React.Component{
 }
 
 
+
+/**
+ *  Creating the routes
+ */
 
 var App = React.createClass({
   
