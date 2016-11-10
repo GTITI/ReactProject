@@ -61,7 +61,6 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
   
   constructor(props) {
     super(props);
-    console.log("aaaaaaaaaaaaaaaaaaaa  " + this.props.navigator);
    
     this.state = {
         name : '' ,
@@ -107,20 +106,20 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
           Communications.email(["k.antonio_16@yahoo.com"],"","","Sent from react",requestsString.toString());
       }
 
+     
+
       /**
-       * When pressing on an item in the lsit view
+       * moves to a new scene, in this case to EditDetails sending to that scene the request details prefixed by "passed"
        */
-      _onPressListViewItem() {
-	        	Alert.alert("OK","Item touched ");
-            this.props.navigator.push({id: 2,});
-
-    	}
-
-      _navigate(name){
+      _navigate(request){
           this.props.navigator.push({
     	        name: 'EditDetails',
+              
               passProps: {
-            	name: name
+            	    passedName: request.name,
+                  passedAddress: request.address,
+                  passedProductName: request.productName,
+                  passedDescription: request.description
                 }
           })
         
@@ -133,8 +132,7 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
       renderRequest(request){
           return (
               <TouchableOpacity 
-                  /** onPress={this._onPressListViewItem.bind(this)}>*/
-                  onPress={ () => this._navigate('YOYOYOYOYO')}>
+                  onPress={ () => this._navigate(request)}>
                       <View 
                         style={styles.viewDetails}>
                           <Text>{request.name}</Text>
@@ -178,7 +176,7 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
           />
 
            <Button
-            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue', marginBottom: 4}}
+            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'green', marginBottom: 4}}
               style={{fontSize: 20, color: 'white'}}
               styleDisabled={{color: 'red'}}
               onPress={() => this._addBtn()}>
@@ -186,8 +184,8 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
 		      </Button>
  
           <Button
-            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'yellow'}}
-              style={{fontSize: 20, color: 'blue'}}
+            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'green'}}
+              style={{fontSize: 20, color: 'white'}}
               styleDisabled={{color: 'red'}}
               onPress={() => this._emailBtn()}>
               Send email
@@ -200,8 +198,6 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
             renderRow={this.renderRequest.bind(this)}
             style={styles.listView}
           />
-
-
 
     </View>
     
@@ -217,13 +213,51 @@ class EditDetails extends React.Component{
 
   constructor(props){
     super(props);
-    console.log("bbbbbbbbb " + this.props.navigator)
+    this.state = {
+        name : '' ,
+        address: '',
+        productName: '',
+        description: ''}
+
   }
 
     render(){
       return(
-        <View>
-          <Text>aaaaa</Text>
+        <View style={{backgroundColor: 'white'}}>
+          <Text style={styles.header}>Edit details of the request</Text>
+
+          <TextInput
+            style= {styles.input} 
+            onChangeText={(text) => this.setState({name : text})}
+            placeholder="Name..."
+            value = {this.props.passedName}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => this.setState({address : text})}
+            placeholder="Address..."
+            value = {this.props.passedAddress}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => this.setState({productName : text})}
+            placeholder="Product name..."
+            value = {this.props.passedProductName}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => this.setState({description : text})}
+            placeholder="Description..."
+            value = {this.props.passedDescription}
+          />
+
+          <Button
+            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'green', marginBottom: 4}}
+              style={{fontSize: 20, color: 'white'}}
+              styleDisabled={{color: 'red'}}
+              onPress={ () => this.props.navigator.pop() }>
+              Save and return
+		      </Button>
         </View>
       )
     }
@@ -275,7 +309,9 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 30,
-    textAlign : 'center'
+    textAlign : 'center',
+    color: 'black'
+
   },
   holder: {
     flex: 0.25,
