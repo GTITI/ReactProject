@@ -75,7 +75,7 @@ public class ListItemActivity extends AppCompatActivity {
                 Request r = new Request(getNewName,getNewAddress,getNewProductName,getNewDescription);
 
                 if (contains(requestsArray,r)) {
-                    Toast.makeText(getBaseContext(), "Item already in the list", Toast.LENGTH_LONG).show();
+                    finish();
                 } else if (getNewName == null || getNewName.trim().equals("") || getNewAddress == null ||
                         getNewAddress.equals("") || getNewProductName == null || getNewProductName.equals("") ||
                         getNewDescription == null || getNewDescription.equals("")) {
