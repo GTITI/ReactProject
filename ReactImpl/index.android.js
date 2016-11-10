@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
@@ -24,50 +19,49 @@ import Communications from 'react-native-communications';
 import Button from 'react-native-button';
 
 
+/**
+ * the array of requests when the app is started
+ */
 var requests = [
     { "name": "Antonio Koteles", "address": "Mihai Viteazu 45 Oradea", "productName" : "Samsung galaxy s4","description" : "Broken display"},
     { "name": "George Buz", "address": "A.I. Cuza 34 Holod", "productName" : "IPhone 4s", "description" : "dead batery"},
     { "name": "Andrei Micle", "address": "Miron 22 Timisoara" , "productName" : "Tablet asus" , "description" : "Not restarting"},
-    
   ]
 
-  
 
 
-  class Request  extends React.Component{
-     constructor(props) {
-        super(props);
-        this.state = { name:'', address:'', productName:'', description:'' };
-      
-        
+
+var SCREEN_WIDTH = require('Dimensions').get('window').width;
+
+var BaseConfig = Navigator.SceneConfigs.FloatFromRight;
+
+var CustomLeftToRightGesture = Object.assign({}, BaseConfig.gestures.pop, {
+  // Make it snap back really quickly after canceling pop
+  snapVelocity: 8,
+  // Make it so we can drag anywhere on the screen
+  edgeHitWidth: SCREEN_WIDTH,
+});
+
+var CustomSceneConfig = Object.assign({}, BaseConfig, {
+  // A very tighly wound spring will make this transition fast
+  springTension: 100,
+  springFriction: 1,
+  // Use our custom gesture defined above
+  gestures: {
+    pop: CustomLeftToRightGesture,
   }
+});
 
 
-     getName(){return this.state.name}
-     getAddress(){return this.state.address}
-     getProductName(){return this.state.productName}
-     getDescription(){return this.state.description}
 
-     setName(name){this.state.name = name}
-     setAddress(adress){this.state.address = address}
-     setProductName(productName){this.state.productName = productName}
-     setAddress(address){this.state.address = address}
-
-     render(){
-       return (
-          <View>
-              <Text> name: {this.props.name}</Text>
-          </View>
-      );
-     }
-  }
-
- 
- 
+/**
+ * Main class with input form , ADD BUTTON , SEND EMAIL BUTTON, ListView
+ */
  class ReactImpl extends React.Component {
   
   constructor(props) {
     super(props);
+    console.log("aaaaaaaaaaaaaaaaaaaa  " + this.props.navigator);
    
     this.state = {
         name : '' ,
@@ -79,8 +73,7 @@ var requests = [
               }),
               loaded: false,    
         };
-  
-  }
+   }
 
   
       componentDidMount(){
@@ -88,8 +81,11 @@ var requests = [
               dataSource: this.state.dataSource.cloneWithRows(requests),
               loaded: true,
             });
-	  }
+	    }
 
+      /**
+       * Adds a new request into the list view
+       */
       _addBtn(){
            requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
           Alert.alert("Done","Request added");
@@ -97,10 +93,13 @@ var requests = [
               dataSource: this.state.dataSource.cloneWithRows(requests),
               loaded: true,
             });
-    }
+      }
 
 
-    _emailBtn() {
+      /**
+       * Sends an email with the data from the lsit view
+       */
+      _emailBtn() {
           var requestsString = requests.map(function(item) {
                 return "\nName: " + item['name'] + "\nAddress: " + item['address'] + "\nProduct name: " + item['productName'] + "\nDescription: " + item['description'] + "\n";
            });
@@ -108,38 +107,49 @@ var requests = [
           Communications.email(["k.antonio_16@yahoo.com"],"","","Sent from react",requestsString.toString());
       }
 
-      _onPressListVIewItem() {
-	        	Alert.alert("OK","Item touched");
+      /**
+       * When pressing on an item in the lsit view
+       */
+      _onPressListViewItem() {
+	        	Alert.alert("OK","Item touched ");
+            this.props.navigator.push({id: 2,});
 
     	}
 
+      _navigate(name){
+          this.props.navigator.push({
+    	        name: 'EditDetails',
+              passProps: {
+            	name: name
+                }
+          })
+        
+      }
+
+
+      /**
+       * Forms a list view item with the properties of a new request
+       */
       renderRequest(request){
           return (
               <TouchableOpacity 
-              
-              onPress={() => this._onPressListVIewItem}>
-                  <View 
-                    style={styles.viewDetails}>
-                      <Text>{request.name}</Text>
-                      <Text>{request.address}</Text>
-                      <Text>{request.productName}</Text>
-                      <Text>{request.description}</Text>
-                  </View>
+                  /** onPress={this._onPressListViewItem.bind(this)}>*/
+                  onPress={ () => this._navigate('YOYOYOYOYO')}>
+                      <View 
+                        style={styles.viewDetails}>
+                          <Text>{request.name}</Text>
+                          <Text>{request.address}</Text>
+                          <Text>{request.productName}</Text>
+                          <Text>{request.description}</Text>
+                      </View>
               </TouchableOpacity>
             );
 	  }
     
 
-
- 
-
   render() {
-
-   
     return (
-
-      <View>
-
+      <View style={{backgroundColor: 'white'}}>
           <Text style={styles.header}>Welcome</Text>
       
           <TextInput
@@ -148,7 +158,6 @@ var requests = [
             placeholder="Name..."
             value = {this.state.name}
           />
-
           <TextInput
             style={styles.input}
             onChangeText={(text) => this.setState({address : text})}
@@ -168,9 +177,6 @@ var requests = [
             value = {this.state.description}
           />
 
-
-         
-
            <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue', marginBottom: 4}}
               style={{fontSize: 20, color: 'white'}}
@@ -178,8 +184,7 @@ var requests = [
               onPress={() => this._addBtn()}>
               Add request
 		      </Button>
-
-         
+ 
           <Button
             containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'yellow'}}
               style={{fontSize: 20, color: 'blue'}}
@@ -188,14 +193,15 @@ var requests = [
               Send email
 		      </Button>
 
-          
 
 
-        <ListView 
-			    dataSource={this.state.dataSource}
-			    renderRow={this.renderRequest}
-			    style={styles.listView}
-		    />
+          <ListView 
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRequest.bind(this)}
+            style={styles.listView}
+          />
+
+
 
     </View>
     
@@ -205,6 +211,53 @@ var requests = [
 
 
 
+
+
+class EditDetails extends React.Component{
+
+  constructor(props){
+    super(props);
+    console.log("bbbbbbbbb " + this.props.navigator)
+  }
+
+    render(){
+      return(
+        <View>
+          <Text>aaaaa</Text>
+        </View>
+      )
+    }
+}
+
+
+
+var App = React.createClass({
+  
+  renderScene(route, navigator) {
+  	if(route.name == 'ReactImpl') {
+    	return <ReactImpl navigator={navigator} {...route.passProps}  />
+    }
+    if(route.name == 'EditDetails') {
+    	return <EditDetails navigator={navigator} {...route.passProps}  />
+    }
+  },
+  
+  render() {
+    return (
+      <Navigator
+      	style={{ flex:1 }}
+        initialRoute={{ name: 'ReactImpl' }}
+        renderScene={ this.renderScene } />
+    )
+  }
+});
+
+
+
+
+/**
+ * STYLES
+ */
 const styles = StyleSheet.create({
   
   input: {
@@ -214,8 +267,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 3,
   },
- 
- 
   listView: {
       width: 320,
       paddingTop: 1,
@@ -237,8 +288,7 @@ const styles = StyleSheet.create({
   viewDetails: {
 	  margin: 9
   }
-  
-  
+   
 });
 
-AppRegistry.registerComponent('ReactImpl', () => ReactImpl);
+AppRegistry.registerComponent('ReactImpl', () => App);
