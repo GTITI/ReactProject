@@ -88,12 +88,19 @@ var CustomSceneConfig = Object.assign({}, BaseConfig, {
        * Adds a new request into the list view
        */
       _addBtn(){
-           requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
+          if( this.state.name !== '' && this.state.address != '' && this.state.productName != '' && this.state.description != '' )
+            {
+            requests.push({ "name": this.state.name, "address": this.state.address, "productName" : this.state.productName, "description" : this.state.description});
             Alert.alert("Done","Request added");
-           this.setState({
+            this.setState({
               dataSource: this.state.dataSource.cloneWithRows(requests),
               loaded: true,
             });
+            }
+          else{
+            Alert.alert("Warning","Some input is empty");
+          }
+           
       }
 
 
@@ -226,11 +233,17 @@ class EditDetails extends React.Component{
    */
   _handlePress() {
 			
-		this.props.request.name = this.state.name;
-		this.props.request.address = this.state.address;
-		this.props.request.productName = this.state.productName;
-		this.props.request.description = this.state.description;
-		this.props.navigator.pop();	
+      if( this.state.name !== '' && this.state.address != '' && this.state.productName != '' && this.state.description != '' ){
+          this.props.request.name = this.state.name;
+          this.props.request.address = this.state.address;
+          this.props.request.productName = this.state.productName;
+          this.props.request.description = this.state.description;
+          Alert.alert("Done","Saved");
+          this.props.navigator.pop();	
+      }else{
+        Alert.alert("Warning","Some input is empty");
+      }
+		
   }
 
     render(){
